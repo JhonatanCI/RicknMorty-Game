@@ -6,7 +6,14 @@ public class LinkListTail {
 	
 	private Node head;
 	private Node tail;
+	private String rickName;
+	private String mortyName;
 	
+	public LinkListTail(String username1, String username2) {
+		this.rickName=username1;
+		this.mortyName=username2;
+	}
+
 	public void addFirst(Node node) {
 		if(head == null) {
 			head = node;
@@ -63,11 +70,11 @@ public class LinkListTail {
 		}
 		
 		
-		if(current.isMorty()) {
+		if(current.getMorty()!=null) {
 			System.out.print("  [M]  ");
 		}else
 		
-		if(current.isRick()) {
+		if(current.getRick()!=null) {
 			System.out.print("  [R]  ");
 		}else
 		
@@ -99,8 +106,8 @@ public class LinkListTail {
 		}
 		Node rick = search(r);
 		Node morty = search(m);
-		rick.setRick(true);
-		morty.setMorty(true);
+		rick.setRick(new Player(rickName));
+		morty.setMorty(new Player(mortyName));
 	}
 	
 	public void generateSems(int quantity) {
@@ -108,7 +115,7 @@ public class LinkListTail {
 		int pos=getRandomNumberUsingNextInt( 1,  tail.getValue());
 		while(quantity!=num) {
 			Node s = search(pos);
-			if(!s.isSem()&&!s.isMorty()&&!s.isRick()) {
+			if(!s.isSem()&&s.getMorty()==null&&s.getRick()==null) {
 				s.setSem(true);
 				num++;
 			}
@@ -119,5 +126,25 @@ public class LinkListTail {
 	public int getRandomNumberUsingNextInt(int min, int max) {
 	    Random random = new Random();
 	    return random.nextInt(max - min) + min;
+	}
+
+	public void generatePortals(int link) {
+		
+		int num=0;
+		int pos=getRandomNumberUsingNextInt( 1,  tail.getValue());
+		int por= getRandomNumberUsingNextInt( 1,  tail.getValue());
+		if(por==pos) {
+			generatePortals( link);
+		}
+		while(link!=num) {
+			Node s = search(pos);
+			Node portal = search(por);
+			if(s.getMorty()==null&&s.getRick()==null) {
+				s.setPortal(portal);
+				num++;
+			}
+			pos=getRandomNumberUsingNextInt( 1,  tail.getValue());
+		}
+		
 	}
 }

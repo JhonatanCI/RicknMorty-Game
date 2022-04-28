@@ -8,7 +8,7 @@ import model.Node;
 public class Main {
 	
 	static Scanner sc = new Scanner(System.in);
-
+	
 	public static void main(String[] args) {
 		
 		System.out.print("BUSCANDO LAS SEMILLAS\n");
@@ -36,17 +36,18 @@ public class Main {
 		System.out.print("Digita el username del jugador de Morty\n");
 		String username2 = sc.nextLine();
 		
-		createLinked(col,fil,sem,link);
+		createLinked(col,fil,sem,link,username1,username2);
 	}
 	
-	public static void createLinked(int col, int fil, int sem, int link) {
-		LinkListTail list = new LinkListTail();
+	public static void createLinked(int col, int fil, int sem, int link, String username1, String username2) {
+		LinkListTail list = new LinkListTail(username1, username2);
 		int total = col*fil;
 		for(int i=1;i<=total;i++)
 		 list.addLast(new Node(i));
 		
 		list.generatePositions();
 		list. generateSems(sem);
+		list.generatePortals(link);
 		list.print(fil);
 		
 	}

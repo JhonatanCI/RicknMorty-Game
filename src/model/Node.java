@@ -3,24 +3,33 @@ package model;
 public class Node {
 	
 	private int value;
-	private boolean morty;
-	private boolean rick;
+	private Player morty;
+	private Player rick;
 	private boolean sem;
+	private Node portal;
 
 
-	public boolean isMorty() {
+	public Node getPortal() {
+		return portal;
+	}
+
+	public void setPortal(Node portal) {
+		this.portal = portal;
+	}
+
+	public Player getMorty() {
 		return morty;
 	}
 
-	public void setMorty(boolean morty) {
+	public void setMorty(Player morty) {
 		this.morty = morty;
 	}
 
-	public boolean isRick() {
+	public Player getRick() {
 		return rick;
 	}
 
-	public void setRick(boolean rick) {
+	public void setRick(Player rick) {
 		this.rick = rick;
 	}
 
