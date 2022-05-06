@@ -111,7 +111,8 @@ public class Main {
 	
 	
 	private static void MostrarMarcador() {
-		// TODO Auto-generated method stub
+		System.out.println("Semillas Rick:"+list.getSemRick());
+		System.out.println("Semillas Morty: "+list.getSemMorty());
 		
 	}
 

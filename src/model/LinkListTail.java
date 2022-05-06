@@ -1,14 +1,50 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class LinkListTail {
 
+	public final static String SPLIT=";";	
+	
+	private List<Player> winners = new ArrayList<Player>();
+
 	private Node head;
 	private Node tail;
 
-	public static int semRick;
-	public static int semMorty;
+	private  int semRick = 0;
+	private  int semMorty = 0;
+
+	public int getSemRick() {
+		return semRick;
+	}
+
+	public void setSemRick(int semRick) {
+		this.semRick = semRick;
+
+	}	
+
+	public List<Player> getWinners() {
+		return winners;
+	}
+
+	public void setWinners(List<Player> winners) {
+		this.winners = winners;
+	}
+
+	public  int getSemMorty() {
+		return semMorty;
+	}
+
+	public  void setSemMorty(int semMorty) {
+		this.semMorty = semMorty;
+	}
 
 	public void addFirst(Node node) {
 		if (head == null) {
@@ -66,31 +102,31 @@ public class LinkListTail {
 			System.out.print("  [M]  ");
 		} else
 
-		if (current.isRick()) {
-			System.out.print("  [R]  ");
-		} else
+			if (current.isRick()) {
+				System.out.print("  [R]  ");
+			} else
 
-		if (current.isSem()) {
-			System.out.print("  [*]  ");
-		} else {
+				if (current.isSem()) {
+					System.out.print("  [*]  ");
+				} else {
 
-			System.out.print("  [" + current.getValue() + "]  ");
-		}
+					System.out.print("  [" + current.getValue() + "]  ");
+				}
 
 		if (current == tail) {
 			return;
 		}
 		print(current.getNext(), f, num);
 	}
-	
+
 	public void printLinks(int f) {
 		printLinks(head, f, 0);
 	}
-	
+
 	private void printLinks(Node current, int f, int num) {
-		
-	
-		
+
+
+
 		if (num == f) {
 			System.out.print("\n");
 			num = 1;
@@ -98,7 +134,7 @@ public class LinkListTail {
 			num++;
 		}
 
-		 if(current.getLink()!=(char)0){
+		if(current.getLink()!=(char)0){
 			System.out.print("  ["+current.getLink()+"]  ");
 		}
 		else{
@@ -108,7 +144,7 @@ public class LinkListTail {
 			return;
 		}
 		printLinks(current.getNext(), f, num);
-		
+
 	}
 
 	public void delete(int value) {
@@ -146,7 +182,7 @@ public class LinkListTail {
 			pos = getRandomNumberUsingNextInt(1, tail.getValue());
 		}
 	}
-	
+
 	public void generateLinks(int link ) {
 		int numLinks=0;
 		int posNodPor = getRandomNumberUsingNextInt(1, tail.getValue());
@@ -154,12 +190,12 @@ public class LinkListTail {
 		int count = 65;
 		char chara = (char)count;
 		while (link!= numLinks) {
-			
+
 			Node posNod=search(posNodPor);			
 			Node portal=search(por);
 			if(posNodPor!=por&&posNod.getPortal()==null&&portal.getPortal()==null) {
-				
-				
+
+
 				portal.setLink(chara);
 				posNod.setLink(chara);
 				posNod.setPortal(portal);
@@ -170,12 +206,12 @@ public class LinkListTail {
 			}
 			por = getRandomNumberUsingNextInt(1, tail.getValue());
 			posNodPor = getRandomNumberUsingNextInt(1, tail.getValue());
-			
+
 		}
 	}
-	
-	
-	
+
+
+
 
 	public int getRandomNumberUsingNextInt(int min, int max) {
 		Random random = new Random();
@@ -234,13 +270,13 @@ public class LinkListTail {
 			return findOPlayer(1, current.getNext());
 		} else
 
-		if (num == 2) {
+			if (num == 2) {
 
-			if (current.isMorty()) {
-				return current;
+				if (current.isMorty()) {
+					return current;
+				}
+				return findOPlayer(2, current.getNext());
 			}
-			return findOPlayer(2, current.getNext());
-		}
 
 		return out;
 	}
@@ -255,13 +291,13 @@ public class LinkListTail {
 					semRick++;
 					nodo.setSem(false);
 				}
-				
+
 
 			} else if (rsp == 2) { // hacia atrás
 				moveAtras(nodo, nodo, numDado);
 				nodo.setRick(false);
 				if (nodo.isSem()) {
-					semRick++;
+					++semRick;
 					nodo.setSem(false);
 				}
 			}
@@ -270,10 +306,10 @@ public class LinkListTail {
 				moveAdelante(nodo, nodo, numDado);
 				nodo.setMorty(false);
 				if (nodo.isSem()) {
-					semMorty++;
+					++semMorty;
 					nodo.setSem(false);
 				}
-				
+
 
 			} else if (rsp == 2) { // hacia atrás
 				moveAtras(nodo, nodo, numDado);
@@ -282,7 +318,7 @@ public class LinkListTail {
 					semMorty++;
 					nodo.setSem(false);
 				}
-				
+
 
 			}
 		}
@@ -294,9 +330,9 @@ public class LinkListTail {
 		if (nodo.isRick()) {
 			// Condicion de parada
 			if (numDado == 0) {
-				
+
 				if(current.getPortal()!=null) {
-					
+
 					current.getPortal().setRick(true);
 
 				}else {
@@ -312,7 +348,7 @@ public class LinkListTail {
 			// Condicion de parada
 			if (numDado == 0) {
 				if(current.getPortal()!=null) {
-					
+
 					current.getPortal().setMorty(true);
 
 				}else {
@@ -332,7 +368,7 @@ public class LinkListTail {
 			// Condicion de parada
 			if (numDado == 0) {
 				if(current.getPortal()!=null) {
-					
+
 					current.getPortal().setRick(true);
 
 				}else {
@@ -346,9 +382,9 @@ public class LinkListTail {
 		} else if (nodo.isMorty()) {
 			// Condicion de parada
 			if (numDado == 0) {
-				
+
 				if(current.getPortal()!=null) {
-					
+
 					current.getPortal().setMorty(true);
 
 				}else {
@@ -388,7 +424,77 @@ public class LinkListTail {
 			msg = username2 + "GANÓ LA PARTIDA/n" + "Semillas recolectadas: " + semMorty;
 
 		}
+		
+		Player winner = new Player();
+		
+		updateScore(winner);
+		
+		exportData();
+		
+		
 		return msg;
+	}
+	
+	private void updateScore(Player winner) {
+		boolean stop = false;
+		for (int i=0;i<winners.size() && !stop;i++) {
+			if (winners.get(i).getUsername.equals(winner.getUSername())) {
+				winners.get(i).setPuntaje(winners.get(i).getPuntaje() + winner.getPuntaje);
+				stop = true;
+			}
+		}
+		
+		if (stop == false) {
+			winners.add(winner);
+		}
+	}
+
+
+	//Import data
+	public void importData() throws IOException {
+		File file  = new File("data/TOP.txt");
+
+		if (file!=null) {
+			System.out.println("Se importará la información del archivo txt");
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(file));
+				String line = br.readLine();
+				while(line!=null){	
+					String[] parts = line.split(SPLIT);
+					
+	    				Player player = new Player();
+	    				winners.add(player);
+					  			
+					line = br.readLine();    				
+				}
+				br.close();
+				System.out.println("La información se ha importado correctamente");
+
+			}catch (IOException e) {
+				System.out.println("Hubo un problema. No se pudo importar la información");    			 			
+			}    		
+		}
+
+	}
+
+
+
+
+	//Export data
+	public void exportData() throws IOException{
+		File file = new File ("data/TOP.txt"); 
+		PrintWriter pw =  new PrintWriter(file);
+
+		if (file!=null) {    	
+			System.out.println("Se exportará la información del archivo txt");
+				/*
+	    		for (int i=0;i<winners.size();i++) {
+	    			pw.println(winners.get(i)+";"+winners.get(i));
+	    		}
+			 	*/
+			pw.close();
+			System.out.println("Se ha exportado exitosamente la información del archivo txt"); 		   	
+		}     			    
 	}
 
 }
