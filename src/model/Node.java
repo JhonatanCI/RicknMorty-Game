@@ -3,33 +3,42 @@ package model;
 public class Node {
 	
 	private int value;
-	private Player morty;
-	private Player rick;
+	
+	private boolean morty;
+	private boolean rick;
 	private boolean sem;
+	
+	private Node next;
+	private Node previus;
+	
+	
+
+	int passed;
 	private Node portal;
 
-
-	public Node getPortal() {
-		return portal;
+	private char link=0;
+	
+	public char getLink() {
+		return link;
 	}
 
-	public void setPortal(Node portal) {
-		this.portal = portal;
+	public void setLink(char link) {
+		this.link = link;
 	}
 
-	public Player getMorty() {
+	public boolean isMorty() {
 		return morty;
 	}
 
-	public void setMorty(Player morty) {
+	public void setMorty(boolean morty) {
 		this.morty = morty;
 	}
 
-	public Player getRick() {
+	public boolean isRick() {
 		return rick;
 	}
 
-	public void setRick(Player rick) {
+	public void setRick(boolean rick) {
 		this.rick = rick;
 	}
 
@@ -42,9 +51,14 @@ public class Node {
 	}
 
 
-	private Node next;
-	private Node previus;
 
+	public int getPassed() {
+		return passed;
+	}
+
+	public void setPassed(int passed) {
+		this.passed = passed;
+	}
 
 	public Node getPrevius() {
 		return previus;
@@ -56,6 +70,7 @@ public class Node {
 
 	public Node(int value) {
 		this.value = value;
+		passed=0;
 	}
 
 	public int getValue() {
@@ -75,5 +90,13 @@ public class Node {
 	public void setNext(Node next) {
 		this.next = next;
 	}
+
+	public void setPortal(Node posNod) {
+		portal=posNod;
+		
+	}
 	
+	public Node getPortal() {
+		return portal;
+	}
 }

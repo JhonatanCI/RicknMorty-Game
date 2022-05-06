@@ -1,26 +1,29 @@
 package model;
 
+
 public class Player {
-	private String username;	
-	private int score;
 	
-	public int getScore() {
-		return score;
+	private int ScoreRick;
+	private int ScoreMorty;
+	
+	public Player(int scoreRick, int scoreMorty) {
+		super();
+		ScoreRick = scoreRick;
+		ScoreMorty = scoreMorty;
 	}
+	public int getScoreRick() {
+		return ScoreRick;
+	}
+	public void setScoreRick(int scoreRick) {
+		ScoreRick = scoreRick;
+	}
+	public int getScoreMorty() {
+		return ScoreMorty;
+	}
+	public void setScoreMorty(int scoreMorty) {
+		ScoreMorty = scoreMorty;
+	}
+	
+	
 
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-	public Player( String username) {
-		this.username = username;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
 }
